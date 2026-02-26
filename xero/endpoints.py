@@ -41,7 +41,7 @@ ENTITY_REGISTRY = [
     EntityDef("tax_rates", "TaxRates", "TaxRates",
               paginated=False, id_field="Name"),
     EntityDef("bank_transfers", "BankTransfers", "BankTransfers",
-              has_attachments=True, id_field="BankTransferID"),
+              paginated=False, has_attachments=True, id_field="BankTransferID"),
     EntityDef("linked_transactions", "LinkedTransactions", "LinkedTransactions",
               id_field="LinkedTransactionID"),
     EntityDef("overpayments", "Overpayments", "Overpayments",

@@ -12,8 +12,9 @@ REPORTS = [
     {"name": "trial_balance", "endpoint": "Reports/TrialBalance"},
     {"name": "balance_sheet", "endpoint": "Reports/BalanceSheet"},
     {"name": "profit_and_loss", "endpoint": "Reports/ProfitAndLoss"},
-    {"name": "aged_receivables", "endpoint": "Reports/AgedReceivablesByContact"},
-    {"name": "aged_payables", "endpoint": "Reports/AgedPayablesByContact"},
+    # Aged Receivables/Payables require a contactId per-contact and are
+    # expensive to fetch for all contacts. The underlying data is already
+    # captured in invoices and payments exports.
     {"name": "bank_summary", "endpoint": "Reports/BankSummary"},
 ]
 

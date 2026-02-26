@@ -176,13 +176,33 @@ class XeroClient:
             return all_records
 
         page = 1
+        first_record_id = None
         while True:
             data = self.get(endpoint, params={"page": page})
             records = data.get(response_key, [])
             if not records:
                 break
+
+            # Detect endpoints that ignore pagination (return same data every page)
+            if records and page == 1:
+                # Capture an identifier from the first record of page 1
+                first_record_id = str(records[0]) if records else None
+            elif records and page > 1 and first_record_id:
+                if str(records[0]) == first_record_id:
+                    logger.warning(
+                        "  Endpoint %s ignores pagination "
+                        "(page %d returned same data as page 1). "
+                        "Using page 1 data only.", endpoint, page
+                    )
+                    break
+
             all_records.extend(records)
             logger.info("  Page %d: %d records (total: %d)", page, len(records), len(all_records))
+
+            # Xero standard page size is 100; fewer means last page
+            if len(records) < 100:
+                break
+
             page += 1
 
         return all_records
