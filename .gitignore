@@ -1,0 +1,7 @@
+.env
+.xero_tokens.json
+backups/
+__pycache__/
+*.pyc
+*.pyo
+.venv/
